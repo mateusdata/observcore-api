@@ -17,4 +17,28 @@ import * as Prisma from './internal/prismaNamespaceBrowser.js'
 export { Prisma }
 export * as $Enums from './enums.js'
 export * from './enums.js';
-
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
+/**
+ * Model PrometheusConfig
+ * 
+ */
+export type PrometheusConfig = Prisma.PrometheusConfigModel
+/**
+ * Model Service
+ * 
+ */
+export type Service = Prisma.ServiceModel
+/**
+ * Model Metric
+ * 
+ */
+export type Metric = Prisma.MetricModel
+/**
+ * Model Alert
+ * 
+ */
+export type Alert = Prisma.AlertModel

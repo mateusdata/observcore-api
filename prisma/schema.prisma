@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client"
@@ -12,4 +8,76 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  config    PrometheusConfig? 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+model PrometheusConfig {
+  id        String   @id @default(uuid())
+  url       String   
+  name      String   
+  userId    String   @unique 
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  services  Service[] 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("prometheus_configs")
+}
+model Service {
+  id                 String           @id @default(uuid())
+  name               String           
+  description        String?
+  prometheusConfigId String
+  prometheusConfig   PrometheusConfig @relation(fields: [prometheusConfigId], references: [id], onDelete: Cascade)
+  metrics            Metric[]       
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+
+  @@map("services")
+}
+model Metric {
+  id              String   @id @default(uuid())
+  name            String 
+  
+  promQL          String 
+  zScoreThreshold Float    @default(3.0)
+  checkInterval   Int      @default(60)
+
+  serviceId       String
+  service         Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  alerts          Alert[]  
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("metrics")
+}
+model Alert {
+  id          String   @id @default(uuid())
+  metricId    String
+  metric      Metric   @relation(fields: [metricId], references: [id], onDelete: Cascade)
+  value       Float    
+  zScoreValue Float    
+  severity    Severity @default(HIGH)
+  timestamp   DateTime @default(now())
+  isResolved  Boolean  @default(false)
+  @@map("alerts")
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
 }
