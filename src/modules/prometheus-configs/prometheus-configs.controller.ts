@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete, UseGuards, HttpCode, HttpStatus } from '@nestjs/common';
 import { PrometheusConfigsService } from './prometheus-configs.service';
 import { CreatePrometheusConfigDto } from './dto/create-prometheus-config.dto';
 import { UpdatePrometheusConfigDto } from './dto/update-prometheus-config.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { User } from 'src/common/decorators/User';
 
+@ApiTags('Prometheus Configs')
+@ApiBearerAuth()
 @Controller('prometheus-configs')
 export class PrometheusConfigsController {
   constructor(private readonly prometheusConfigsService: PrometheusConfigsService) {}
 
   @Post()
-  create(@Body() createPrometheusConfigDto: CreatePrometheusConfigDto) {
-    return this.prometheusConfigsService.create(createPrometheusConfigDto);
+  create(@User('sub') userId: string, @Body() createDto: CreatePrometheusConfigDto) {
+    return this.prometheusConfigsService.create(userId, createDto);
   }
 
   @Get()
-  findAll() {
-    return this.prometheusConfigsService.findAll();
+  findOne(@User('sub') userId: string) {
+    return this.prometheusConfigsService.findOne(userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.prometheusConfigsService.findOne(+id);
+  @Patch()
+  update(@User('sub') userId: string, @Body() updateDto: UpdatePrometheusConfigDto) {
+    return this.prometheusConfigsService.update(userId, updateDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePrometheusConfigDto: UpdatePrometheusConfigDto) {
-    return this.prometheusConfigsService.update(+id, updatePrometheusConfigDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.prometheusConfigsService.remove(+id);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete()
+  remove(@User('sub') userId: string) {
+    return this.prometheusConfigsService.remove(userId);
   }
 }

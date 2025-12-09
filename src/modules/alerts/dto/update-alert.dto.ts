@@ -1,4 +1,9 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateAlertDto } from './create-alert.dto';
+import { ApiProperty } from "@nestjs/swagger";
+import { IsBoolean, IsNotEmpty } from "class-validator";
 
-export class UpdateAlertDto extends PartialType(CreateAlertDto) {}
+export class UpdateAlertDto {
+    @ApiProperty()
+    @IsBoolean()
+    @IsNotEmpty()
+    isResolved: boolean;
+}

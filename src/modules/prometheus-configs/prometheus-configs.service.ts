@@ -1,26 +1,59 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePrometheusConfigDto } from './dto/create-prometheus-config.dto';
 import { UpdatePrometheusConfigDto } from './dto/update-prometheus-config.dto';
+import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PrismaErrorHandler } from 'src/common/exceptions/prisma-error-handler';
 
 @Injectable()
 export class PrometheusConfigsService {
-  create(createPrometheusConfigDto: CreatePrometheusConfigDto) {
-    return 'This action adds a new prometheusConfig';
+  constructor(private prismaService: PrismaService) {}
+
+  async create(userId: string, createDto: CreatePrometheusConfigDto) {
+    try {
+      return await this.prismaService.prometheusConfig.create({
+        data: {
+          ...createDto,
+          userId,
+        },
+      });
+    } catch (error) {
+      PrismaErrorHandler.handle(error);
+    }
   }
 
-  findAll() {
-    return `This action returns all prometheusConfigs`;
+  async findOne(userId: string) {
+    try {
+      const config = await this.prismaService.prometheusConfig.findUnique({
+        where: { userId },
+        include: {
+            services: true
+        }
+      });
+      if (!config) throw new NotFoundException('Config not found');
+      return config;
+    } catch (error) {
+      PrismaErrorHandler.handle(error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} prometheusConfig`;
+  async update(userId: string, updateDto: UpdatePrometheusConfigDto) {
+    try {
+      return await this.prismaService.prometheusConfig.update({
+        where: { userId },
+        data: updateDto,
+      });
+    } catch (error) {
+      PrismaErrorHandler.handle(error);
+    }
   }
 
-  update(id: number, updatePrometheusConfigDto: UpdatePrometheusConfigDto) {
-    return `This action updates a #${id} prometheusConfig`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} prometheusConfig`;
+  async remove(userId: string) {
+    try {
+      await this.prismaService.prometheusConfig.delete({
+        where: { userId },
+      });
+    } catch (error) {
+      PrismaErrorHandler.handle(error);
+    }
   }
 }

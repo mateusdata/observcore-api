@@ -23,7 +23,7 @@ import { AlertsModule } from './modules/alerts/alerts.module';
     PrismaModule,
     AuthModule,
     EmailsModule,
-      PrometheusConfigsModule,
+    PrometheusConfigsModule,
     ServicesModule,
     MetricsModule,
     AlertsModule,
@@ -31,7 +31,7 @@ import { AlertsModule } from './modules/alerts/alerts.module';
   ],
 
   providers: [
-   
+
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
