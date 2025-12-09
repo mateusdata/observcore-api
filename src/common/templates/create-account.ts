@@ -52,7 +52,6 @@ export const createAccountTemplate = (name: string) => `
         <div class="content">
             <h1>Bem-vindo à Observcore, ${name}!</h1>
             <p>Obrigado por criar uma conta conosco. Estamos felizes em ter você conosco!</p>
-            <p> Agilise seu dia a dia com nossos serviços de lavagem e manutenção de veículos.</p>
             <p>Atenciosamente,<br>Equipe Observcore</p>
         </div>
         <div class="footer">

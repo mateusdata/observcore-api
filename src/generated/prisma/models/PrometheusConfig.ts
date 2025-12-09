@@ -29,6 +29,8 @@ export type PrometheusConfigMinAggregateOutputType = {
   url: string | null
   name: string | null
   userId: string | null
+  deletedAt: Date | null
+  deletedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -38,6 +40,8 @@ export type PrometheusConfigMaxAggregateOutputType = {
   url: string | null
   name: string | null
   userId: string | null
+  deletedAt: Date | null
+  deletedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,6 +51,8 @@ export type PrometheusConfigCountAggregateOutputType = {
   url: number
   name: number
   userId: number
+  deletedAt: number
+  deletedBy: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -58,6 +64,8 @@ export type PrometheusConfigMinAggregateInputType = {
   url?: true
   name?: true
   userId?: true
+  deletedAt?: true
+  deletedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -67,6 +75,8 @@ export type PrometheusConfigMaxAggregateInputType = {
   url?: true
   name?: true
   userId?: true
+  deletedAt?: true
+  deletedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -76,6 +86,8 @@ export type PrometheusConfigCountAggregateInputType = {
   url?: true
   name?: true
   userId?: true
+  deletedAt?: true
+  deletedBy?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -158,6 +170,8 @@ export type PrometheusConfigGroupByOutputType = {
   url: string
   name: string
   userId: string
+  deletedAt: Date | null
+  deletedBy: string | null
   createdAt: Date
   updatedAt: Date
   _count: PrometheusConfigCountAggregateOutputType | null
@@ -188,6 +202,8 @@ export type PrometheusConfigWhereInput = {
   url?: Prisma.StringFilter<"PrometheusConfig"> | string
   name?: Prisma.StringFilter<"PrometheusConfig"> | string
   userId?: Prisma.StringFilter<"PrometheusConfig"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"PrometheusConfig"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"PrometheusConfig"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PrometheusConfig"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PrometheusConfig"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -199,6 +215,8 @@ export type PrometheusConfigOrderByWithRelationInput = {
   url?: Prisma.SortOrder
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -213,6 +231,8 @@ export type PrometheusConfigWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PrometheusConfigWhereInput | Prisma.PrometheusConfigWhereInput[]
   url?: Prisma.StringFilter<"PrometheusConfig"> | string
   name?: Prisma.StringFilter<"PrometheusConfig"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"PrometheusConfig"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"PrometheusConfig"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PrometheusConfig"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PrometheusConfig"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -224,6 +244,8 @@ export type PrometheusConfigOrderByWithAggregationInput = {
   url?: Prisma.SortOrder
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PrometheusConfigCountOrderByAggregateInput
@@ -239,6 +261,8 @@ export type PrometheusConfigScalarWhereWithAggregatesInput = {
   url?: Prisma.StringWithAggregatesFilter<"PrometheusConfig"> | string
   name?: Prisma.StringWithAggregatesFilter<"PrometheusConfig"> | string
   userId?: Prisma.StringWithAggregatesFilter<"PrometheusConfig"> | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PrometheusConfig"> | Date | string | null
+  deletedBy?: Prisma.StringNullableWithAggregatesFilter<"PrometheusConfig"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PrometheusConfig"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PrometheusConfig"> | Date | string
 }
@@ -247,6 +271,8 @@ export type PrometheusConfigCreateInput = {
   id?: string
   url: string
   name: string
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutConfigInput
@@ -258,6 +284,8 @@ export type PrometheusConfigUncheckedCreateInput = {
   url: string
   name: string
   userId: string
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutPrometheusConfigInput
@@ -267,6 +295,8 @@ export type PrometheusConfigUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutConfigNestedInput
@@ -278,6 +308,8 @@ export type PrometheusConfigUncheckedUpdateInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   services?: Prisma.ServiceUncheckedUpdateManyWithoutPrometheusConfigNestedInput
@@ -288,6 +320,8 @@ export type PrometheusConfigCreateManyInput = {
   url: string
   name: string
   userId: string
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -296,6 +330,8 @@ export type PrometheusConfigUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -305,6 +341,8 @@ export type PrometheusConfigUncheckedUpdateManyInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -319,6 +357,8 @@ export type PrometheusConfigCountOrderByAggregateInput = {
   url?: Prisma.SortOrder
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -328,6 +368,8 @@ export type PrometheusConfigMaxOrderByAggregateInput = {
   url?: Prisma.SortOrder
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -337,6 +379,8 @@ export type PrometheusConfigMinOrderByAggregateInput = {
   url?: Prisma.SortOrder
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -396,6 +440,8 @@ export type PrometheusConfigCreateWithoutUserInput = {
   id?: string
   url: string
   name: string
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   services?: Prisma.ServiceCreateNestedManyWithoutPrometheusConfigInput
@@ -405,6 +451,8 @@ export type PrometheusConfigUncheckedCreateWithoutUserInput = {
   id?: string
   url: string
   name: string
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutPrometheusConfigInput
@@ -430,6 +478,8 @@ export type PrometheusConfigUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   services?: Prisma.ServiceUpdateManyWithoutPrometheusConfigNestedInput
@@ -439,6 +489,8 @@ export type PrometheusConfigUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   services?: Prisma.ServiceUncheckedUpdateManyWithoutPrometheusConfigNestedInput
@@ -448,6 +500,8 @@ export type PrometheusConfigCreateWithoutServicesInput = {
   id?: string
   url: string
   name: string
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutConfigInput
@@ -458,6 +512,8 @@ export type PrometheusConfigUncheckedCreateWithoutServicesInput = {
   url: string
   name: string
   userId: string
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -482,6 +538,8 @@ export type PrometheusConfigUpdateWithoutServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutConfigNestedInput
@@ -492,6 +550,8 @@ export type PrometheusConfigUncheckedUpdateWithoutServicesInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -532,6 +592,8 @@ export type PrometheusConfigSelect<ExtArgs extends runtime.Types.Extensions.Inte
   url?: boolean
   name?: boolean
   userId?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -544,6 +606,8 @@ export type PrometheusConfigSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   url?: boolean
   name?: boolean
   userId?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -554,6 +618,8 @@ export type PrometheusConfigSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   url?: boolean
   name?: boolean
   userId?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -564,11 +630,13 @@ export type PrometheusConfigSelectScalar = {
   url?: boolean
   name?: boolean
   userId?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PrometheusConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "name" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["prometheusConfig"]>
+export type PrometheusConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "name" | "userId" | "deletedAt" | "deletedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["prometheusConfig"]>
 export type PrometheusConfigInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   services?: boolean | Prisma.PrometheusConfig$servicesArgs<ExtArgs>
@@ -592,6 +660,8 @@ export type $PrometheusConfigPayload<ExtArgs extends runtime.Types.Extensions.In
     url: string
     name: string
     userId: string
+    deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["prometheusConfig"]>
@@ -1023,6 +1093,8 @@ export interface PrometheusConfigFieldRefs {
   readonly url: Prisma.FieldRef<"PrometheusConfig", 'String'>
   readonly name: Prisma.FieldRef<"PrometheusConfig", 'String'>
   readonly userId: Prisma.FieldRef<"PrometheusConfig", 'String'>
+  readonly deletedAt: Prisma.FieldRef<"PrometheusConfig", 'DateTime'>
+  readonly deletedBy: Prisma.FieldRef<"PrometheusConfig", 'String'>
   readonly createdAt: Prisma.FieldRef<"PrometheusConfig", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PrometheusConfig", 'DateTime'>
 }

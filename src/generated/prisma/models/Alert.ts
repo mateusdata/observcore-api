@@ -44,6 +44,10 @@ export type AlertMinAggregateOutputType = {
   severity: $Enums.Severity | null
   timestamp: Date | null
   isResolved: boolean | null
+  deletedAt: Date | null
+  deletedBy: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AlertMaxAggregateOutputType = {
@@ -54,6 +58,10 @@ export type AlertMaxAggregateOutputType = {
   severity: $Enums.Severity | null
   timestamp: Date | null
   isResolved: boolean | null
+  deletedAt: Date | null
+  deletedBy: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AlertCountAggregateOutputType = {
@@ -64,6 +72,10 @@ export type AlertCountAggregateOutputType = {
   severity: number
   timestamp: number
   isResolved: number
+  deletedAt: number
+  deletedBy: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -86,6 +98,10 @@ export type AlertMinAggregateInputType = {
   severity?: true
   timestamp?: true
   isResolved?: true
+  deletedAt?: true
+  deletedBy?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type AlertMaxAggregateInputType = {
@@ -96,6 +112,10 @@ export type AlertMaxAggregateInputType = {
   severity?: true
   timestamp?: true
   isResolved?: true
+  deletedAt?: true
+  deletedBy?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type AlertCountAggregateInputType = {
@@ -106,6 +126,10 @@ export type AlertCountAggregateInputType = {
   severity?: true
   timestamp?: true
   isResolved?: true
+  deletedAt?: true
+  deletedBy?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -203,6 +227,10 @@ export type AlertGroupByOutputType = {
   severity: $Enums.Severity
   timestamp: Date
   isResolved: boolean
+  deletedAt: Date | null
+  deletedBy: string | null
+  createdAt: Date
+  updatedAt: Date
   _count: AlertCountAggregateOutputType | null
   _avg: AlertAvgAggregateOutputType | null
   _sum: AlertSumAggregateOutputType | null
@@ -236,6 +264,10 @@ export type AlertWhereInput = {
   severity?: Prisma.EnumSeverityFilter<"Alert"> | $Enums.Severity
   timestamp?: Prisma.DateTimeFilter<"Alert"> | Date | string
   isResolved?: Prisma.BoolFilter<"Alert"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"Alert"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
   metric?: Prisma.XOR<Prisma.MetricScalarRelationFilter, Prisma.MetricWhereInput>
 }
 
@@ -247,6 +279,10 @@ export type AlertOrderByWithRelationInput = {
   severity?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
   isResolved?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   metric?: Prisma.MetricOrderByWithRelationInput
 }
 
@@ -261,6 +297,10 @@ export type AlertWhereUniqueInput = Prisma.AtLeast<{
   severity?: Prisma.EnumSeverityFilter<"Alert"> | $Enums.Severity
   timestamp?: Prisma.DateTimeFilter<"Alert"> | Date | string
   isResolved?: Prisma.BoolFilter<"Alert"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"Alert"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
   metric?: Prisma.XOR<Prisma.MetricScalarRelationFilter, Prisma.MetricWhereInput>
 }, "id">
 
@@ -272,6 +312,10 @@ export type AlertOrderByWithAggregationInput = {
   severity?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
   isResolved?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.AlertCountOrderByAggregateInput
   _avg?: Prisma.AlertAvgOrderByAggregateInput
   _max?: Prisma.AlertMaxOrderByAggregateInput
@@ -290,6 +334,10 @@ export type AlertScalarWhereWithAggregatesInput = {
   severity?: Prisma.EnumSeverityWithAggregatesFilter<"Alert"> | $Enums.Severity
   timestamp?: Prisma.DateTimeWithAggregatesFilter<"Alert"> | Date | string
   isResolved?: Prisma.BoolWithAggregatesFilter<"Alert"> | boolean
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Alert"> | Date | string | null
+  deletedBy?: Prisma.StringNullableWithAggregatesFilter<"Alert"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Alert"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Alert"> | Date | string
 }
 
 export type AlertCreateInput = {
@@ -299,6 +347,10 @@ export type AlertCreateInput = {
   severity?: $Enums.Severity
   timestamp?: Date | string
   isResolved?: boolean
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   metric: Prisma.MetricCreateNestedOneWithoutAlertsInput
 }
 
@@ -310,6 +362,10 @@ export type AlertUncheckedCreateInput = {
   severity?: $Enums.Severity
   timestamp?: Date | string
   isResolved?: boolean
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AlertUpdateInput = {
@@ -319,6 +375,10 @@ export type AlertUpdateInput = {
   severity?: Prisma.EnumSeverityFieldUpdateOperationsInput | $Enums.Severity
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isResolved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   metric?: Prisma.MetricUpdateOneRequiredWithoutAlertsNestedInput
 }
 
@@ -330,6 +390,10 @@ export type AlertUncheckedUpdateInput = {
   severity?: Prisma.EnumSeverityFieldUpdateOperationsInput | $Enums.Severity
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isResolved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AlertCreateManyInput = {
@@ -340,6 +404,10 @@ export type AlertCreateManyInput = {
   severity?: $Enums.Severity
   timestamp?: Date | string
   isResolved?: boolean
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AlertUpdateManyMutationInput = {
@@ -349,6 +417,10 @@ export type AlertUpdateManyMutationInput = {
   severity?: Prisma.EnumSeverityFieldUpdateOperationsInput | $Enums.Severity
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isResolved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AlertUncheckedUpdateManyInput = {
@@ -359,6 +431,10 @@ export type AlertUncheckedUpdateManyInput = {
   severity?: Prisma.EnumSeverityFieldUpdateOperationsInput | $Enums.Severity
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isResolved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AlertListRelationFilter = {
@@ -379,6 +455,10 @@ export type AlertCountOrderByAggregateInput = {
   severity?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
   isResolved?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AlertAvgOrderByAggregateInput = {
@@ -394,6 +474,10 @@ export type AlertMaxOrderByAggregateInput = {
   severity?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
   isResolved?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AlertMinOrderByAggregateInput = {
@@ -404,6 +488,10 @@ export type AlertMinOrderByAggregateInput = {
   severity?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
   isResolved?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AlertSumOrderByAggregateInput = {
@@ -468,6 +556,10 @@ export type AlertCreateWithoutMetricInput = {
   severity?: $Enums.Severity
   timestamp?: Date | string
   isResolved?: boolean
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AlertUncheckedCreateWithoutMetricInput = {
@@ -477,6 +569,10 @@ export type AlertUncheckedCreateWithoutMetricInput = {
   severity?: $Enums.Severity
   timestamp?: Date | string
   isResolved?: boolean
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AlertCreateOrConnectWithoutMetricInput = {
@@ -516,6 +612,10 @@ export type AlertScalarWhereInput = {
   severity?: Prisma.EnumSeverityFilter<"Alert"> | $Enums.Severity
   timestamp?: Prisma.DateTimeFilter<"Alert"> | Date | string
   isResolved?: Prisma.BoolFilter<"Alert"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"Alert"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
 }
 
 export type AlertCreateManyMetricInput = {
@@ -525,6 +625,10 @@ export type AlertCreateManyMetricInput = {
   severity?: $Enums.Severity
   timestamp?: Date | string
   isResolved?: boolean
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AlertUpdateWithoutMetricInput = {
@@ -534,6 +638,10 @@ export type AlertUpdateWithoutMetricInput = {
   severity?: Prisma.EnumSeverityFieldUpdateOperationsInput | $Enums.Severity
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isResolved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AlertUncheckedUpdateWithoutMetricInput = {
@@ -543,6 +651,10 @@ export type AlertUncheckedUpdateWithoutMetricInput = {
   severity?: Prisma.EnumSeverityFieldUpdateOperationsInput | $Enums.Severity
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isResolved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AlertUncheckedUpdateManyWithoutMetricInput = {
@@ -552,6 +664,10 @@ export type AlertUncheckedUpdateManyWithoutMetricInput = {
   severity?: Prisma.EnumSeverityFieldUpdateOperationsInput | $Enums.Severity
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isResolved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -564,6 +680,10 @@ export type AlertSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   severity?: boolean
   timestamp?: boolean
   isResolved?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   metric?: boolean | Prisma.MetricDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["alert"]>
 
@@ -575,6 +695,10 @@ export type AlertSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   severity?: boolean
   timestamp?: boolean
   isResolved?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   metric?: boolean | Prisma.MetricDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["alert"]>
 
@@ -586,6 +710,10 @@ export type AlertSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   severity?: boolean
   timestamp?: boolean
   isResolved?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   metric?: boolean | Prisma.MetricDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["alert"]>
 
@@ -597,9 +725,13 @@ export type AlertSelectScalar = {
   severity?: boolean
   timestamp?: boolean
   isResolved?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type AlertOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "metricId" | "value" | "zScoreValue" | "severity" | "timestamp" | "isResolved", ExtArgs["result"]["alert"]>
+export type AlertOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "metricId" | "value" | "zScoreValue" | "severity" | "timestamp" | "isResolved" | "deletedAt" | "deletedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["alert"]>
 export type AlertInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   metric?: boolean | Prisma.MetricDefaultArgs<ExtArgs>
 }
@@ -623,6 +755,10 @@ export type $AlertPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     severity: $Enums.Severity
     timestamp: Date
     isResolved: boolean
+    deletedAt: Date | null
+    deletedBy: string | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["alert"]>
   composites: {}
 }
@@ -1054,6 +1190,10 @@ export interface AlertFieldRefs {
   readonly severity: Prisma.FieldRef<"Alert", 'Severity'>
   readonly timestamp: Prisma.FieldRef<"Alert", 'DateTime'>
   readonly isResolved: Prisma.FieldRef<"Alert", 'Boolean'>
+  readonly deletedAt: Prisma.FieldRef<"Alert", 'DateTime'>
+  readonly deletedBy: Prisma.FieldRef<"Alert", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Alert", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Alert", 'DateTime'>
 }
     
 

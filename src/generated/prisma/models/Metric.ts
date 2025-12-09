@@ -43,6 +43,8 @@ export type MetricMinAggregateOutputType = {
   zScoreThreshold: number | null
   checkInterval: number | null
   serviceId: string | null
+  deletedAt: Date | null
+  deletedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +56,8 @@ export type MetricMaxAggregateOutputType = {
   zScoreThreshold: number | null
   checkInterval: number | null
   serviceId: string | null
+  deletedAt: Date | null
+  deletedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -65,6 +69,8 @@ export type MetricCountAggregateOutputType = {
   zScoreThreshold: number
   checkInterval: number
   serviceId: number
+  deletedAt: number
+  deletedBy: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -88,6 +94,8 @@ export type MetricMinAggregateInputType = {
   zScoreThreshold?: true
   checkInterval?: true
   serviceId?: true
+  deletedAt?: true
+  deletedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -99,6 +107,8 @@ export type MetricMaxAggregateInputType = {
   zScoreThreshold?: true
   checkInterval?: true
   serviceId?: true
+  deletedAt?: true
+  deletedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -110,6 +120,8 @@ export type MetricCountAggregateInputType = {
   zScoreThreshold?: true
   checkInterval?: true
   serviceId?: true
+  deletedAt?: true
+  deletedBy?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -208,6 +220,8 @@ export type MetricGroupByOutputType = {
   zScoreThreshold: number
   checkInterval: number
   serviceId: string
+  deletedAt: Date | null
+  deletedBy: string | null
   createdAt: Date
   updatedAt: Date
   _count: MetricCountAggregateOutputType | null
@@ -242,6 +256,8 @@ export type MetricWhereInput = {
   zScoreThreshold?: Prisma.FloatFilter<"Metric"> | number
   checkInterval?: Prisma.IntFilter<"Metric"> | number
   serviceId?: Prisma.StringFilter<"Metric"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Metric"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"Metric"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Metric"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Metric"> | Date | string
   service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
@@ -255,6 +271,8 @@ export type MetricOrderByWithRelationInput = {
   zScoreThreshold?: Prisma.SortOrder
   checkInterval?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   service?: Prisma.ServiceOrderByWithRelationInput
@@ -271,6 +289,8 @@ export type MetricWhereUniqueInput = Prisma.AtLeast<{
   zScoreThreshold?: Prisma.FloatFilter<"Metric"> | number
   checkInterval?: Prisma.IntFilter<"Metric"> | number
   serviceId?: Prisma.StringFilter<"Metric"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Metric"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"Metric"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Metric"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Metric"> | Date | string
   service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
@@ -284,6 +304,8 @@ export type MetricOrderByWithAggregationInput = {
   zScoreThreshold?: Prisma.SortOrder
   checkInterval?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MetricCountOrderByAggregateInput
@@ -303,6 +325,8 @@ export type MetricScalarWhereWithAggregatesInput = {
   zScoreThreshold?: Prisma.FloatWithAggregatesFilter<"Metric"> | number
   checkInterval?: Prisma.IntWithAggregatesFilter<"Metric"> | number
   serviceId?: Prisma.StringWithAggregatesFilter<"Metric"> | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Metric"> | Date | string | null
+  deletedBy?: Prisma.StringNullableWithAggregatesFilter<"Metric"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Metric"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Metric"> | Date | string
 }
@@ -313,6 +337,8 @@ export type MetricCreateInput = {
   promQL: string
   zScoreThreshold?: number
   checkInterval?: number
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   service: Prisma.ServiceCreateNestedOneWithoutMetricsInput
@@ -326,6 +352,8 @@ export type MetricUncheckedCreateInput = {
   zScoreThreshold?: number
   checkInterval?: number
   serviceId: string
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutMetricInput
@@ -337,6 +365,8 @@ export type MetricUpdateInput = {
   promQL?: Prisma.StringFieldUpdateOperationsInput | string
   zScoreThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   checkInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   service?: Prisma.ServiceUpdateOneRequiredWithoutMetricsNestedInput
@@ -350,6 +380,8 @@ export type MetricUncheckedUpdateInput = {
   zScoreThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   checkInterval?: Prisma.IntFieldUpdateOperationsInput | number
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutMetricNestedInput
@@ -362,6 +394,8 @@ export type MetricCreateManyInput = {
   zScoreThreshold?: number
   checkInterval?: number
   serviceId: string
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -372,6 +406,8 @@ export type MetricUpdateManyMutationInput = {
   promQL?: Prisma.StringFieldUpdateOperationsInput | string
   zScoreThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   checkInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -383,6 +419,8 @@ export type MetricUncheckedUpdateManyInput = {
   zScoreThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   checkInterval?: Prisma.IntFieldUpdateOperationsInput | number
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -404,6 +442,8 @@ export type MetricCountOrderByAggregateInput = {
   zScoreThreshold?: Prisma.SortOrder
   checkInterval?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -420,6 +460,8 @@ export type MetricMaxOrderByAggregateInput = {
   zScoreThreshold?: Prisma.SortOrder
   checkInterval?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -431,6 +473,8 @@ export type MetricMinOrderByAggregateInput = {
   zScoreThreshold?: Prisma.SortOrder
   checkInterval?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -523,6 +567,8 @@ export type MetricCreateWithoutServiceInput = {
   promQL: string
   zScoreThreshold?: number
   checkInterval?: number
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   alerts?: Prisma.AlertCreateNestedManyWithoutMetricInput
@@ -534,6 +580,8 @@ export type MetricUncheckedCreateWithoutServiceInput = {
   promQL: string
   zScoreThreshold?: number
   checkInterval?: number
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutMetricInput
@@ -575,6 +623,8 @@ export type MetricScalarWhereInput = {
   zScoreThreshold?: Prisma.FloatFilter<"Metric"> | number
   checkInterval?: Prisma.IntFilter<"Metric"> | number
   serviceId?: Prisma.StringFilter<"Metric"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Metric"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"Metric"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Metric"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Metric"> | Date | string
 }
@@ -585,6 +635,8 @@ export type MetricCreateWithoutAlertsInput = {
   promQL: string
   zScoreThreshold?: number
   checkInterval?: number
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   service: Prisma.ServiceCreateNestedOneWithoutMetricsInput
@@ -597,6 +649,8 @@ export type MetricUncheckedCreateWithoutAlertsInput = {
   zScoreThreshold?: number
   checkInterval?: number
   serviceId: string
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -623,6 +677,8 @@ export type MetricUpdateWithoutAlertsInput = {
   promQL?: Prisma.StringFieldUpdateOperationsInput | string
   zScoreThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   checkInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   service?: Prisma.ServiceUpdateOneRequiredWithoutMetricsNestedInput
@@ -635,6 +691,8 @@ export type MetricUncheckedUpdateWithoutAlertsInput = {
   zScoreThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   checkInterval?: Prisma.IntFieldUpdateOperationsInput | number
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -645,6 +703,8 @@ export type MetricCreateManyServiceInput = {
   promQL: string
   zScoreThreshold?: number
   checkInterval?: number
+  deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -655,6 +715,8 @@ export type MetricUpdateWithoutServiceInput = {
   promQL?: Prisma.StringFieldUpdateOperationsInput | string
   zScoreThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   checkInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   alerts?: Prisma.AlertUpdateManyWithoutMetricNestedInput
@@ -666,6 +728,8 @@ export type MetricUncheckedUpdateWithoutServiceInput = {
   promQL?: Prisma.StringFieldUpdateOperationsInput | string
   zScoreThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   checkInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutMetricNestedInput
@@ -677,6 +741,8 @@ export type MetricUncheckedUpdateManyWithoutServiceInput = {
   promQL?: Prisma.StringFieldUpdateOperationsInput | string
   zScoreThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   checkInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -719,6 +785,8 @@ export type MetricSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   zScoreThreshold?: boolean
   checkInterval?: boolean
   serviceId?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
@@ -733,6 +801,8 @@ export type MetricSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   zScoreThreshold?: boolean
   checkInterval?: boolean
   serviceId?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
@@ -745,6 +815,8 @@ export type MetricSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   zScoreThreshold?: boolean
   checkInterval?: boolean
   serviceId?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
@@ -757,11 +829,13 @@ export type MetricSelectScalar = {
   zScoreThreshold?: boolean
   checkInterval?: boolean
   serviceId?: boolean
+  deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MetricOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "promQL" | "zScoreThreshold" | "checkInterval" | "serviceId" | "createdAt" | "updatedAt", ExtArgs["result"]["metric"]>
+export type MetricOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "promQL" | "zScoreThreshold" | "checkInterval" | "serviceId" | "deletedAt" | "deletedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["metric"]>
 export type MetricInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
   alerts?: boolean | Prisma.Metric$alertsArgs<ExtArgs>
@@ -787,6 +861,8 @@ export type $MetricPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     zScoreThreshold: number
     checkInterval: number
     serviceId: string
+    deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["metric"]>
@@ -1220,6 +1296,8 @@ export interface MetricFieldRefs {
   readonly zScoreThreshold: Prisma.FieldRef<"Metric", 'Float'>
   readonly checkInterval: Prisma.FieldRef<"Metric", 'Int'>
   readonly serviceId: Prisma.FieldRef<"Metric", 'String'>
+  readonly deletedAt: Prisma.FieldRef<"Metric", 'DateTime'>
+  readonly deletedBy: Prisma.FieldRef<"Metric", 'String'>
   readonly createdAt: Prisma.FieldRef<"Metric", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Metric", 'DateTime'>
 }

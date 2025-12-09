@@ -79,6 +79,8 @@ export const UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   name: 'name',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -91,6 +93,8 @@ export const PrometheusConfigScalarFieldEnum = {
   url: 'url',
   name: 'name',
   userId: 'userId',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -103,6 +107,8 @@ export const ServiceScalarFieldEnum = {
   name: 'name',
   description: 'description',
   prometheusConfigId: 'prometheusConfigId',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -117,6 +123,8 @@ export const MetricScalarFieldEnum = {
   zScoreThreshold: 'zScoreThreshold',
   checkInterval: 'checkInterval',
   serviceId: 'serviceId',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -131,7 +139,11 @@ export const AlertScalarFieldEnum = {
   zScoreValue: 'zScoreValue',
   severity: 'severity',
   timestamp: 'timestamp',
-  isResolved: 'isResolved'
+  isResolved: 'isResolved',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type AlertScalarFieldEnum = (typeof AlertScalarFieldEnum)[keyof typeof AlertScalarFieldEnum]

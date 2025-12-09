@@ -1,8 +1,6 @@
-
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
   moduleFormat = "cjs"
 }
 
@@ -11,67 +9,85 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
+  id        String            @id @default(uuid())
+  email     String            @unique
   password  String
   name      String?
-  config    PrometheusConfig? 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  config    PrometheusConfig?
+  
+  deletedAt DateTime?
+  deletedBy String?
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
 
   @@map("users")
 }
+
 model PrometheusConfig {
-  id        String   @id @default(uuid())
-  url       String   
-  name      String   
-  userId    String   @unique 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  services  Service[] 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(uuid())
+  url       String
+  name      String
+  userId    String    @unique
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  services  Service[]
+  deletedAt DateTime?
+  deletedBy String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@map("prometheus_configs")
 }
+
 model Service {
   id                 String           @id @default(uuid())
-  name               String           
+  name               String
   description        String?
   prometheusConfigId String
   prometheusConfig   PrometheusConfig @relation(fields: [prometheusConfigId], references: [id], onDelete: Cascade)
-  metrics            Metric[]       
+  metrics            Metric[]
+  deletedAt          DateTime?
+  deletedBy          String?
   createdAt          DateTime         @default(now())
   updatedAt          DateTime         @updatedAt
 
   @@map("services")
 }
+
 model Metric {
-  id              String   @id @default(uuid())
-  name            String 
-  
-  promQL          String 
-  zScoreThreshold Float    @default(3.0)
-  checkInterval   Int      @default(60)
+  id   String @id @default(uuid())
+  name String
 
-  serviceId       String
-  service         Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  promQL          String
+  zScoreThreshold Float  @default(3.0)
+  checkInterval   Int    @default(60)
 
-  alerts          Alert[]  
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  alerts Alert[]
+
+  deletedAt DateTime?
+  deletedBy String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@map("metrics")
 }
+
 model Alert {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   metricId    String
-  metric      Metric   @relation(fields: [metricId], references: [id], onDelete: Cascade)
-  value       Float    
-  zScoreValue Float    
-  severity    Severity @default(HIGH)
-  timestamp   DateTime @default(now())
-  isResolved  Boolean  @default(false)
+  metric      Metric    @relation(fields: [metricId], references: [id], onDelete: Cascade)
+  value       Float
+  zScoreValue Float
+  severity    Severity  @default(HIGH)
+  timestamp   DateTime  @default(now())
+  isResolved  Boolean   @default(false)
+  deletedAt   DateTime?
+  deletedBy   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
   @@map("alerts")
 }
 
