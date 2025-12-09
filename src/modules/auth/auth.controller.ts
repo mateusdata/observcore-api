@@ -1,34 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { Body, Controller, Post } from "@nestjs/common";
+import { CreateAuthDto } from "./dto/create-auth.dto";
+import { Public } from "src/common/decorators/Public.decorator";
+import { RefreshTokenDto } from "./dto/refresh-token.dto";
+import { changePasswordDto } from "./dto/change-password.dto";
+import { AuthService } from "./auth.service";
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) { }
 
-  @Post()
-  create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
-  }
+    @Public()
+    @Post('login')
+    login(@Body() createAuthDto: CreateAuthDto) {
+        return this.authService.create(createAuthDto);
+    }
 
-  @Get()
-  findAll() {
-    return this.authService.findAll();
-  }
+    @Public()
+    @Post('refresh-token')
+    refresh(@Body() body: RefreshTokenDto) {
+        return this.authService.refreshToken(body.token);
+    }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
-  }
+    @Public()
+    @Post('send-code')
+    sendCode(@Body() body: { email: string }) {
+        return this.authService.sendEmailCode(body.email);
+    }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
-  }
+    @Public()
+    @Post('validate-code')
+    validateCode(@Body() body: { email: string, code: string }) {
+        return this.authService.validateCode(body.email, body.code);
+    }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
-  }
+    @Public()
+    @Post('change-password')
+    changePassword(@Body() dto: changePasswordDto & { email: string }) {
+        return this.authService.changePassword(dto.email, dto);
+    }
 }

@@ -1,26 +1,72 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { Injectable, Logger, NotFoundException, UnauthorizedException, BadRequestException } from "@nestjs/common";
+import { CreateAuthDto } from "./dto/create-auth.dto";
+import * as bcrypt from "bcrypt";
+import { JwtService } from "@nestjs/jwt";
+import { EmailsService } from "../emails/emails.service";
+import { changePasswordDto } from "./dto/change-password.dto";
+import { PrismaService } from "../../common/prisma/prisma.service";
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
-  }
+    private readonly logger = new Logger(AuthService.name);
+    private readonly SALT_ROUNDS = 10;
+    private readonly CODE_EXPIRY_MINUTES = 10;
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+    constructor(
+        private prisma: PrismaService,
+        private jwtService: JwtService,
+        private emailService: EmailsService
+    ) { }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+    async create(createAuthDto: CreateAuthDto) {
+        const user = await this.prisma.user.findUnique({
+            where: { email: createAuthDto.email },
+        });
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+        if (!user) throw new NotFoundException('User not found');
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
-  }
+        const isPasswordValid = await bcrypt.compare(createAuthDto.password, user.password);
+        if (!isPasswordValid) throw new UnauthorizedException("User or password invalid");
+
+        const payload = { sub: user.id, email: user.email };
+        const { password, ...userWithoutPassword } = user;
+
+        return { ...userWithoutPassword, token: this.jwtService.sign(payload) };
+    }
+
+    async refreshToken(refreshToken: string) {
+        try {
+            const decoded = this.jwtService.verify(refreshToken);
+            const user = await this.prisma.user.findUnique({ where: { id: decoded.sub } });
+            if (!user) throw new NotFoundException();
+
+            const payload = { sub: user.id, email: user.email };
+            return { token: this.jwtService.sign(payload) };
+        } catch (error) {
+            this.logger.error('Error refreshing token', error);
+            throw new UnauthorizedException('Invalid refresh token');
+        }
+    }
+
+    async sendEmailCode(email: string) {
+        return { message: "Code sent" };
+    }
+
+    async validateCode(email: string, code: string) {
+        return { message: "Code valid" };
+    }
+
+    async changePassword(email: string, dto: changePasswordDto) {
+         const user = await this.prisma.user.findUnique({ where: { email } });
+        if (!user) throw new NotFoundException("User not found");
+
+        const hashedPassword = await bcrypt.hash(dto.password, this.SALT_ROUNDS);
+
+        await this.prisma.user.update({
+            where: { email },
+            data: { password: hashedPassword },
+        });
+
+        return { message: "Password changed successfully" };
+    }
 }

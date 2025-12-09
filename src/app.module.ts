@@ -1,24 +1,35 @@
-import { Module } from '@nestjs/common';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthModule } from './modules/auth/auth.module';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+
 import { UsersModule } from './modules/users/users.module';
-import { AuthGuard } from './common/guards/auth/auth.guard';
 import { PrismaModule } from './common/prisma/prisma.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { APP_GUARD, APP_FILTER } from '@nestjs/core';
+import { AuthGuard } from './common/guards/auth/auth.guard';
+import { LoggerMiddleware } from './common/middlewares/logger.middleware';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { EmailsModule } from './modules/emails/emails.module';
+import { ConfigModule } from '@nestjs/config';
 import { PrometheusConfigsModule } from './modules/prometheus-configs/prometheus-configs.module';
-import { ServicesModule } from './modules/services/services.module';
 import { MetricsModule } from './modules/metrics/metrics.module';
+import { ServicesModule } from './modules/services/services.module';
 import { AlertsModule } from './modules/alerts/alerts.module';
+
+
 @Module({
   imports: [
-    ThrottlerModule.forRoot({ throttlers: [{ ttl: 6000, limit: 20, }] }),
-    PrismaModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    ThrottlerModule.forRoot({ throttlers: [{ ttl: 60000, limit: 100 }] }),
     UsersModule,
+    PrismaModule,
     AuthModule,
-    PrometheusConfigsModule,
+    EmailsModule,
+      PrometheusConfigsModule,
     ServicesModule,
     MetricsModule,
-    AlertsModule],
+    AlertsModule,
+
+  ],
+
   providers: [
    
     {
@@ -29,7 +40,15 @@ import { AlertsModule } from './modules/alerts/alerts.module';
       provide: APP_GUARD,
       useClass: ThrottlerGuard
     },
-    
   ],
 })
-export class AppModule { }
+
+
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes('*');
+
+  }
+}
