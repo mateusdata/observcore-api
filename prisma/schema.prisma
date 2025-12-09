@@ -1,107 +1,15 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
-}
-
-generator erd {
-  provider = "prisma-erd-generator"
-}
-
-model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("users")
-}
-
-
-model PrometheusInstance {
-  id          String    @id @default(uuid())
-  name        String
-  url         String
-  description String?
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  services    Service[]
-
-  @@map("prometheus_instances")
-}
-
-
-model Service {
-  id                   String              @id @default(uuid())
-  name                 String
-  description          String?
-  promqlQuery          String              @map("promql_query")
-  isActive             Boolean             @default(true)
-  prometheusInstanceId String              @map("prometheus_instance_id")
-  createdAt            DateTime            @default(now())
-  updatedAt            DateTime            @updatedAt
-
-  prometheusInstance   PrometheusInstance  @relation(fields: [prometheusInstanceId], references: [id], onDelete: Cascade)
-  alerts               Alert[]
-
-  @@map("services")
-}
-
-
-model Alert {
-  id          String   @id @default(uuid())
-  serviceId   String   @map("service_id")
-  value       Float
-  threshold   Float?
-  zScore      Float?   @map("z_score")
-  message     String?
-  severity    String   @default("warning") // warning, critical, info
-  status      String   @default("active")  // active, resolved, acknowledged
-  detectedAt  DateTime @default(now())     @map("detected_at")
-  resolvedAt  DateTime? @map("resolved_at")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-
-  @@index([serviceId])
-  @@index([detectedAt])
-  @@index([status])
-  @@map("alerts")
-}
-
-
-
-model MetricHistory {
-  id          String   @id @default(uuid())
-  serviceId   String   @map("service_id")
-  value       Float
-  timestamp   DateTime
-  createdAt   DateTime @default(now())
-
-  @@index([serviceId])
-  @@index([timestamp])
-  @@map("metric_history")
-}
-
-
-
-model JobExecution {
-  id            String   @id @default(uuid())
-  jobName       String   @map("job_name")
-  status        String   // success, error
-  message       String?
-  executionTime Int?     @map("execution_time") // em milissegundos
-  executedAt    DateTime @default(now())        @map("executed_at")
-
-  @@index([executedAt])
-  @@map("job_executions")
+  provider = "postgresql"
 }

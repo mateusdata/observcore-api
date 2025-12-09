@@ -5,9 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: observcore-api
+    container_name: nest_app
     ports:
-      - "3000:3000"   # expõe a API na máquina host
+      - "3000:3000"  
     environment:
       DATABASE_URL: ${DATABASE_URL}
       NODE_ENV: production
