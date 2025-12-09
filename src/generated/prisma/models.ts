@@ -8,9 +8,9 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.js'
-export type * from './models/PrometheusConfig.js'
-export type * from './models/Service.js'
-export type * from './models/Metric.js'
-export type * from './models/Alert.js'
-export type * from './commonInputTypes.js'
+export type * from './models/User'
+export type * from './models/PrometheusConfig'
+export type * from './models/Service'
+export type * from './models/Metric'
+export type * from './models/Alert'
+export type * from './commonInputTypes'
