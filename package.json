@@ -22,8 +22,9 @@
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.1.8",
+    "@nestjs/jwt": "^11.0.2",
     "@nestjs/platform-express": "^11.0.1",
-    "@nestjs/swagger": "^11.2.1",
+    "@nestjs/swagger": "^11.2.3",
     "@nestjs/throttler": "^6.5.0",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",
@@ -32,6 +33,7 @@
     "class-validator": "^0.14.2",
     "dotenv": "^17.2.3",
     "i": "^0.3.7",
+    "install": "^0.13.0",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
