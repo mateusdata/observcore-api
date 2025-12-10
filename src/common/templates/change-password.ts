@@ -4,61 +4,64 @@ export const changePasswordTemplate = (name: string) => `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senha Alterada com Sucesso - ObservCore</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;              
-            padding: 0;
-        }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-            text-align: center;
-            padding-bottom: 20px;
-        }
-        .header img {
-            max-width: 150px;
-        }
-        .content {
-            line-height: 1.6;
-        }
-        .content h1 {
-            color: #333333;
-        }
-        .content p {
-            color: #666666;
-        }
-        .footer {
-            text-align: center;
-            padding-top: 20px;
-            font-size: 12px;
-            color: #999999;
-        }
-    </style>
+    <title>Senha Alterada com Sucesso</title>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <img src="https://www.valuehost.com.br/blog/wp-content/uploads/2023/03/post_thumbnail-6cc054b51851e25f51d703594838715e.jpeg.webp" alt="Logo ObservCore">
-        </div>
-        <div class="content">
-            <h1>Olá, ${name}!</h1>
-            <p>Sua senha foi alterada com sucesso.</p>
-            <p>Se você não realizou essa alteração, por favor, entre em contato imediatamente com o suporte.</p>
-            <p>Atenciosamente,<br>Equipe ObservCore</p>
-        </div>
-        <div class="footer">
-            &copy; 2024 ObservCore. Todos os direitos reservados.
-        </div>
-    </div>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f7fa;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f7fa; padding: 40px 20px;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 40px 30px; text-align: center;">
+                            <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 600; letter-spacing: -0.5px;">ObservCore</h1>
+                            <p style="color: #e0f7ff; margin: 10px 0 0 0; font-size: 16px;">Segurança da Conta</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 50px 40px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 0 0 30px 0;">
+                                <tr>
+                                    <td align="center">
+                                        <div style="background-color: #d4edda; border-radius: 50%; width: 80px; height: 80px; display: inline-flex; align-items: center; justify-content: center;">
+                                            <span style="color: #155724; font-size: 48px;">✓</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h2 style="color: #1a202c; margin: 0 0 20px 0; font-size: 24px; font-weight: 600; text-align: center;">Senha Alterada com Sucesso!</h2>
+                            <p style="color: #4a5568; line-height: 1.6; margin: 0 0 20px 0; font-size: 16px;">
+                                Olá, ${name}
+                            </p>
+                            <p style="color: #4a5568; line-height: 1.6; margin: 0 0 30px 0; font-size: 16px;">
+                                Sua senha foi alterada com sucesso. A partir de agora, utilize sua nova senha para acessar sua conta.
+                            </p>
+                            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+                                <tr>
+                                    <td style="background-color: #fff5f5; border-left: 4px solid #f56565; padding: 20px; border-radius: 8px;">
+                                        <p style="color: #742a2a; margin: 0; font-size: 14px; line-height: 1.6;">
+                                            <strong>🔒 Atenção:</strong> Se você não realizou esta alteração, entre em contato com nosso suporte imediatamente.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="color: #718096; margin: 30px 0 0 0; font-size: 14px;">
+                                Atenciosamente,<br>
+                                <strong style="color: #2d3748;">Equipe ObservCore</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #f7fafc; padding: 30px 40px; border-top: 1px solid #e2e8f0; text-align: center;">
+                            <p style="color: #a0aec0; font-size: 13px; margin: 0; line-height: 1.5;">
+                                © ${new Date().getFullYear()} ObservCore. Todos os direitos reservados.<br>
+                                Este é um email automático, por favor não responda.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
-`
+`;

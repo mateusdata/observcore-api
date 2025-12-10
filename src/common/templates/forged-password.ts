@@ -4,74 +4,64 @@ export const forgetPasswordTemplate = (name: string, code: string) => `
 <head>
     <meta charset="UTF-8">          
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperação de Senha - Observcore</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-            text-align: center;
-            padding-bottom: 20px;
-        }
-        .header img {
-            max-width: 150px;
-        }
-        .content {
-            line-height: 1.6;
-        }
-        .content h1 {
-            color: #333333;
-        }
-        .content p {
-            color: #666666;
-        }
-        .code-box {
-            background-color: #f1f1f1;
-            border: 1px dashed #28a745;
-            color: #333333;
-            font-size: 22px;
-            font-weight: bold;
-            padding: 16px;
-            text-align: center;
-            letter-spacing: 2px;
-            margin: 24px 0;
-            border-radius: 6px;
-        }
-        .footer {
-            text-align: center;
-            padding-top: 20px;
-            font-size: 12px;
-            color: #999999;
-        }
-    </style>
+    <title>Recuperação de Senha</title>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <img src="https://www.valuehost.com.br/blog/wp-content/uploads/2023/03/post_thumbnail-6cc054b51851e25f51d703594838715e.jpeg.webp" alt="Logo Observcore">
-        </div>  
-        <div class="content">
-            <h1>Olá, ${name}!</h1>
-            <p>Recebemos uma solicitação para redefinir sua senha. Use o código abaixo para prosseguir com a redefinição:</p>
-            <div class="code-box">${code}</div>
-            <p>Se você não solicitou essa alteração, por favor, ignore este e-mail.</p>
-            <p>Atenciosamente,<br>Equipe Observcore</p>
-        </div>
-        <div class="footer">
-            &copy; 2024 Observcore. Todos os direitos reservados.
-        </div>
-    </div>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f7fa;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f7fa; padding: 40px 20px;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 40px 30px; text-align: center;">
+                            <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 600; letter-spacing: -0.5px;">ObservCore</h1>
+                            <p style="color: #ffe0e8; margin: 10px 0 0 0; font-size: 16px;">Recuperação de Senha</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 50px 40px;">
+                            <h2 style="color: #1a202c; margin: 0 0 20px 0; font-size: 24px; font-weight: 600;">Olá, ${name}</h2>
+                            <p style="color: #4a5568; line-height: 1.6; margin: 0 0 30px 0; font-size: 16px;">
+                                Recebemos uma solicitação para redefinir sua senha. Use o código de verificação abaixo para prosseguir:
+                            </p>
+                            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+                                <tr>
+                                    <td align="center">
+                                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 30px; display: inline-block;">
+                                            <p style="color: #ffffff; font-size: 40px; font-weight: 700; letter-spacing: 8px; margin: 0; font-family: 'Courier New', monospace;">${code}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+                                <tr>
+                                    <td style="background-color: #fff5f5; border-left: 4px solid #f56565; padding: 20px; border-radius: 8px;">
+                                        <p style="color: #742a2a; margin: 0; font-size: 14px; line-height: 1.6;">
+                                            <strong>⏱️ Importante:</strong> Este código expira em 10 minutos por questões de segurança.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="color: #718096; line-height: 1.6; margin: 30px 0 0 0; font-size: 14px;">
+                                Se você não solicitou esta alteração, pode ignorar este email com segurança. Sua senha permanecerá inalterada.
+                            </p>
+                            <p style="color: #718096; margin: 30px 0 0 0; font-size: 14px;">
+                                Atenciosamente,<br>
+                                <strong style="color: #2d3748;">Equipe ObservCore</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #f7fafc; padding: 30px 40px; border-top: 1px solid #e2e8f0; text-align: center;">
+                            <p style="color: #a0aec0; font-size: 13px; margin: 0; line-height: 1.5;">
+                                © ${new Date().getFullYear()} ObservCore. Todos os direitos reservados.<br>
+                                Este é um email automático, por favor não responda.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
-`
+`;
