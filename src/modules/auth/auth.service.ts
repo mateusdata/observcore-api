@@ -3,8 +3,10 @@ import { CreateAuthDto } from "./dto/create-auth.dto";
 import * as bcrypt from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
 import { EmailsService } from "../emails/emails.service";
-import { changePasswordDto } from "./dto/change-password.dto";
+import { ChangePasswordDto } from "./dto/change-password.dto";
 import { PrismaService } from "src/common/prisma/prisma.service";
+import { forgetPasswordTemplate } from "src/common/templates/forged-password";
+import { changePasswordTemplate } from "src/common/templates/change-password";
 
 @Injectable()
 export class AuthService {
@@ -52,24 +54,65 @@ export class AuthService {
     }
 
     async sendEmailCode(email: string) {
-        return { message: "Code sent" };
+        const user = await this.prisma.user.findUnique({ where: { email } });
+        if (!user) throw new NotFoundException("User not found");
+
+        const code = Math.floor(100000 + Math.random() * 900000).toString();
+        const expiry = new Date(Date.now() + this.CODE_EXPIRY_MINUTES * 60 * 1000);
+
+        await this.prisma.user.update({
+            where: { email },
+            data: { verificationCode: code, verificationExpiry: expiry },
+        });
+
+        const emailResult = await this.emailService.create({
+            to: user.email,
+            subject: "Código para alteração de senha - ObservCore",
+            text: `Seu código para alteração de senha é: ${code}. O código expira em ${this.CODE_EXPIRY_MINUTES} minutos.`,
+            body: forgetPasswordTemplate(user.name || 'Usuário', code),
+        });
+
+        return { message: "Código enviado com sucesso", email: user.email };
     }
 
     async validateCode(email: string, code: string) {
-        return { message: "Code valid" };
+        const user = await this.prisma.user.findUnique({ where: { email } });
+        if (!user) throw new NotFoundException("User not found");
+
+        if (!user.verificationCode || !user.verificationExpiry)
+            throw new BadRequestException("Nenhum código de verificação encontrado. Solicite um código novamente.");
+
+        const now = new Date();
+        if (user.verificationCode !== code) throw new UnauthorizedException("Código inválido");
+        if (user.verificationExpiry < now) throw new BadRequestException("Código expirado. Solicite um novo código.");
+
+        return { message: "Código validado com sucesso" };
     }
 
-    async changePassword(email: string, dto: changePasswordDto) {
-         const user = await this.prisma.user.findUnique({ where: { email } });
+    async changePassword(email: string, dto: ChangePasswordDto) {
+        const user = await this.prisma.user.findUnique({ where: { email } });
         if (!user) throw new NotFoundException("User not found");
+
+        await this.validateCode(email, dto.code);
 
         const hashedPassword = await bcrypt.hash(dto.password, this.SALT_ROUNDS);
 
         await this.prisma.user.update({
             where: { email },
-            data: { password: hashedPassword },
+            data: { 
+                password: hashedPassword, 
+                verificationCode: null, 
+                verificationExpiry: null 
+            },
         });
 
-        return { message: "Password changed successfully" };
+        await this.emailService.create({
+            to: user.email,
+            subject: "Senha alterada com sucesso - ObservCore",
+            text: "Sua senha foi alterada com sucesso.",
+            body: changePasswordTemplate(user.name || 'Usuário'),
+        });
+
+        return { message: "Senha alterada com sucesso" };
     }
 }

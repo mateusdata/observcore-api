@@ -4,10 +4,15 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { PrismaErrorHandler } from 'src/common/exceptions/prisma-error-handler';
+import { EmailsService } from '../emails/emails.service';
+import { createAccountTemplate } from 'src/common/templates/create-account';
 
 @Injectable()
 export class UsersService {
-  constructor(private prismaService: PrismaService) { }
+  constructor(
+    private prismaService: PrismaService,
+    private emailsService: EmailsService
+  ) { }
 
   async create(createUserDto: CreateUserDto) {
     try {
@@ -17,6 +22,14 @@ export class UsersService {
       const user = await this.prismaService.user.create({
         data: createUserDto,
       });
+
+      // Envia email de boas-vindas
+      this.emailsService.create({
+        to: user.email,
+        subject: "Bem-vindo ao ObservCore!",
+        text: `Olá ${user.name || 'Usuário'}! Sua conta foi criada com sucesso.`,
+        body: createAccountTemplate(user.name || 'Usuário'),
+      }).catch(err => console.error('Erro ao enviar email:', err));
 
       const { password, ...result } = user;
       return result;

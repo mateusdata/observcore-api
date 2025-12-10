@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { PrismaService } from 'src/common/prisma/prisma.service';
+import { EmailsService } from '../emails/emails.service';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -16,6 +17,10 @@ describe('UsersController', () => {
     },
   };
 
+  const mockEmailsService = {
+    create: jest.fn().mockResolvedValue({ success: true }),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
@@ -24,6 +29,10 @@ describe('UsersController', () => {
         {
           provide: PrismaService,
           useValue: mockPrismaService,
+        },
+        {
+          provide: EmailsService,
+          useValue: mockEmailsService,
         },
       ],
     }).compile();

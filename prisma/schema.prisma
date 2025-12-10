@@ -9,11 +9,13 @@ datasource db {
 }
 
 model User {
-  id        String            @id @default(uuid())
-  email     String            @unique
-  password  String
-  name      String?
-  config    PrometheusConfig?
+  id                  String            @id @default(uuid())
+  email               String            @unique
+  password            String
+  name                String?
+  verificationCode    String?
+  verificationExpiry  DateTime?
+  config              PrometheusConfig?
   
   deletedAt DateTime?
   deletedBy String?
