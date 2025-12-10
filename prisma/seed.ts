@@ -25,7 +25,7 @@ async function main() {
 
   const prometheusConfig = await prisma.prometheusConfig.create({
     data: {
-      name: "Cluster Principal",
+      name: "Cluster do prometheus",
       url: "http://localhost:9090",
       userId: user.id,
     }
