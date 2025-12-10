@@ -7,11 +7,11 @@ import { PrismaModule } from "src/common/prisma/prisma.module";
 
 @Module({
     imports: [
-        PrismaModule, // ✅ ADICIONE ISSO
+        PrismaModule,
         JwtModule.register({
             global: true,
             secret: jwtConstants.secret,
-            signOptions: { expiresIn: '120d' },
+            signOptions: { expiresIn: '1m' },
         })
     ],
     controllers:[AuthController],

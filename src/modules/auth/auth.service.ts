@@ -4,7 +4,7 @@ import * as bcrypt from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
 import { EmailsService } from "../emails/emails.service";
 import { changePasswordDto } from "./dto/change-password.dto";
-import { PrismaService } from "../../common/prisma/prisma.service";
+import { PrismaService } from "src/common/prisma/prisma.service";
 
 @Injectable()
 export class AuthService {
@@ -21,6 +21,7 @@ export class AuthService {
     async create(createAuthDto: CreateAuthDto) {
         const user = await this.prisma.user.findUnique({
             where: { email: createAuthDto.email },
+            omit: { password: false }
         });
 
         if (!user) throw new NotFoundException('User not found');
@@ -30,8 +31,10 @@ export class AuthService {
 
         const payload = { sub: user.id, email: user.email };
         const { password, ...userWithoutPassword } = user;
+        const token = this.jwtService.sign(payload);
+        const expiresIn = this.jwtService.decode(token, { complete: true })?.payload?.exp;
 
-        return { ...userWithoutPassword, token: this.jwtService.sign(payload) };
+        return { ...userWithoutPassword, token, expiresIn };
     }
 
     async refreshToken(refreshToken: string) {
