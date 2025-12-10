@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsNotEmpty, IsString, Length } from "class-validator";
+import { Transform } from "class-transformer";
 
 export class ValidateCodeDto {
     @ApiProperty({
@@ -8,6 +9,7 @@ export class ValidateCodeDto {
     })
     @IsNotEmpty({ message: "Email é obrigatório" })
     @IsEmail({}, { message: "Email inválido" })
+    @Transform(({ value }) => String(value).toLowerCase())
     email: string;
 
     @ApiProperty({

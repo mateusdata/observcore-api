@@ -16,6 +16,8 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     try {
+      // Normaliza o e-mail
+      createUserDto.email = createUserDto.email?.trim().toLowerCase();
       const hash = await bcrypt.hash(createUserDto.password, 10);
       createUserDto.password = hash;
 
@@ -25,7 +27,7 @@ export class UsersService {
 
       // Envia email de boas-vindas
       this.emailsService.create({
-        to: user.email,
+        to: user.email?.trim().toLowerCase(),
         subject: "Bem-vindo ao ObservCore!",
         text: `Olá ${user.name || 'Usuário'}! Sua conta foi criada com sucesso.`,
         body: createAccountTemplate(user.name || 'Usuário'),
@@ -60,6 +62,9 @@ export class UsersService {
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     try {
+      if (updateUserDto.email) {
+        updateUserDto.email = updateUserDto.email?.trim().toLowerCase();
+      }
       if (updateUserDto.password) {
         updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
       }

@@ -21,8 +21,9 @@ export class AuthService {
     ) { }
 
     async create(createAuthDto: CreateAuthDto) {
+        const normalizedEmail = createAuthDto.email?.trim().toLowerCase();
         const user = await this.prisma.user.findUnique({
-            where: { email: createAuthDto.email },
+            where: { email: normalizedEmail },
             omit: { password: false }
         });
 
@@ -54,7 +55,8 @@ export class AuthService {
     }
 
     async sendEmailCode(email: string) {
-        const user = await this.prisma.user.findUnique({ where: { email } });
+        const normalizedEmail = email?.trim().toLowerCase();
+        const user = await this.prisma.user.findUnique({ where: { email: normalizedEmail } });
         if (!user) throw new NotFoundException("User not found");
 
         const code = Math.floor(100000 + Math.random() * 900000).toString();
@@ -76,7 +78,8 @@ export class AuthService {
     }
 
     async validateCode(email: string, code: string) {
-        const user = await this.prisma.user.findUnique({ where: { email } });
+        const normalizedEmail = email?.trim().toLowerCase();
+        const user = await this.prisma.user.findUnique({ where: { email: normalizedEmail } });
         if (!user) throw new NotFoundException("User not found");
 
         if (!user.verificationCode || !user.verificationExpiry)
@@ -90,15 +93,16 @@ export class AuthService {
     }
 
     async changePassword(email: string, dto: ChangePasswordDto) {
-        const user = await this.prisma.user.findUnique({ where: { email } });
+        const normalizedEmail = email?.trim().toLowerCase();
+        const user = await this.prisma.user.findUnique({ where: { email: normalizedEmail } });
         if (!user) throw new NotFoundException("User not found");
 
-        await this.validateCode(email, dto.code);
+        await this.validateCode(normalizedEmail, dto.code);
 
         const hashedPassword = await bcrypt.hash(dto.password, this.SALT_ROUNDS);
 
         await this.prisma.user.update({
-            where: { email },
+            where: { email: normalizedEmail },
             data: { 
                 password: hashedPassword, 
                 verificationCode: null, 
