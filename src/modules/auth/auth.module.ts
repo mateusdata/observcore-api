@@ -11,7 +11,7 @@ import { PrismaModule } from "src/common/prisma/prisma.module";
         JwtModule.register({
             global: true,
             secret: jwtConstants.secret,
-            signOptions: { expiresIn: '1m' },
+            signOptions: { expiresIn: '10d' },
         })
     ],
     controllers:[AuthController],
