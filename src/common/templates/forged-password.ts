@@ -12,9 +12,9 @@ export const forgetPasswordTemplate = (name: string, code: string) => `
             <td align="center">
                 <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                     <tr>
-                        <td style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 40px 30px; text-align: center;">
+                        <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center;">
                             <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 600; letter-spacing: -0.5px;">ObservCore</h1>
-                            <p style="color: #ffe0e8; margin: 10px 0 0 0; font-size: 16px;">Recuperação de Senha</p>
+                            <p style="color: #e0e7ff; margin: 10px 0 0 0; font-size: 16px;">Recuperação de Senha</p>
                         </td>
                     </tr>
                     <tr>
