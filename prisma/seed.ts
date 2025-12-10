@@ -17,9 +17,9 @@ async function main() {
 
   const user = await prisma.user.create({
     data: {
-      email: "admin@example.com",
+      email: "mateus@gmail.com",
       password,
-      name: "Administrador"
+      name: "Mateus Santos"
     }
   });
 
@@ -41,7 +41,7 @@ async function main() {
 
   const servicePayments = await prisma.service.create({
     data: {
-      name: "Payments Service",
+      name: "Ciclos de Garbage Collection GO",
       description: "Serviço responsável por pagamentos",
       prometheusConfigId: prometheusConfig.id,
     }
@@ -69,7 +69,7 @@ async function main() {
 
   const paymentFailuresMetric = await prisma.metric.create({
     data: {
-      name: "payment_failed_count",
+      name: "Go Garbage Collection Cycles",
       promQL: 'go_gc_cycles_automatic_gc_cycles_total',
       zScoreThreshold: 2.0,
       checkInterval: 60,
