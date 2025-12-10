@@ -13,11 +13,13 @@ import { PrometheusConfigsModule } from './modules/prometheus-configs/prometheus
 import { MetricsModule } from './modules/metrics/metrics.module';
 import { ServicesModule } from './modules/services/services.module';
 import { AlertsModule } from './modules/alerts/alerts.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    ScheduleModule.forRoot(),
     ThrottlerModule.forRoot({ throttlers: [{ ttl: 60000, limit: 100 }] }),
     UsersModule,
     PrismaModule,

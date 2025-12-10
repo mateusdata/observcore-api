@@ -50,7 +50,7 @@ async function main() {
   const apiRequestRateMetric = await prisma.metric.create({
     data: {
       name: "request_rate",
-      promQL: 'sum(rate(http_requests_total[5m]))',
+      promQL: 'sum(rate(go_gc_cycles_automatic_gc_cycles_total[5m]))',
       zScoreThreshold: 3.0,
       checkInterval: 60,
       serviceId: serviceApi.id
@@ -60,7 +60,7 @@ async function main() {
   const apiLatencyMetric = await prisma.metric.create({
     data: {
       name: "latency_p95",
-      promQL: 'histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))',
+      promQL: 'go_gc_cycles_automatic_gc_cycles_total',
       zScoreThreshold: 2.5,
       checkInterval: 30,
       serviceId: serviceApi.id
@@ -70,7 +70,7 @@ async function main() {
   const paymentFailuresMetric = await prisma.metric.create({
     data: {
       name: "payment_failed_count",
-      promQL: 'sum(rate(payment_failures_total[5m]))',
+      promQL: 'go_gc_cycles_automatic_gc_cycles_total',
       zScoreThreshold: 2.0,
       checkInterval: 60,
       serviceId: servicePayments.id
