@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MetricsService } from './metrics.service';
 import { PrismaService } from 'src/common/prisma/prisma.service';
+import { AlertsService } from '../alerts/alerts.service';
 
 describe('MetricsService', () => {
   let service: MetricsService;
@@ -24,6 +25,7 @@ describe('MetricsService', () => {
           provide: PrismaService,
           useValue: mockPrismaService,
         },
+        AlertsService
       ],
     }).compile();
 
