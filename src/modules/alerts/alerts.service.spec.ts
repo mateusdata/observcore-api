@@ -159,10 +159,11 @@ describe('AlertsService', () => {
 
       mockPrismaService.alert.findMany.mockResolvedValue(alerts);
 
-      const result = await service.findAll();
+      const result = await service.findAll('user-id');
 
       expect(result).toHaveLength(2);
       expect(mockPrismaService.alert.findMany).toHaveBeenCalledWith({
+        where: { metric: { service: { prometheusConfig: { userId: 'user-id' } } } },
         orderBy: { timestamp: 'desc' },
         include: {
           metric: {
@@ -184,7 +185,7 @@ describe('AlertsService', () => {
         },
       ]);
 
-      const result = await service.findAll();
+      const result = await service.findAll('user-id');
 
       expect(result[0].metric).toBeDefined();
       expect(result[0].metric.service).toBeDefined();

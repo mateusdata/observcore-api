@@ -3,12 +3,13 @@ import { AlertsService } from './alerts.service';
 import { CreateAlertDto } from './dto/create-alert.dto';
 import { UpdateAlertDto } from './dto/update-alert.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { User } from 'src/common/decorators/User';
 
 @ApiTags('Alerts')
 @ApiBearerAuth()
 @Controller('alerts')
 export class AlertsController {
-  constructor(private readonly alertsService: AlertsService) {}
+  constructor(private readonly alertsService: AlertsService) { }
 
   @Post()
   create(@Body() createDto: CreateAlertDto) {
@@ -16,8 +17,8 @@ export class AlertsController {
   }
 
   @Get()
-  findAll() {
-    return this.alertsService.findAll();
+  findAll(@User('sub') userId: string) {
+    return this.alertsService.findAll(userId);
   }
 
   @Patch(':id')

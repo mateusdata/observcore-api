@@ -6,7 +6,7 @@ import { PrismaErrorHandler } from 'src/common/exceptions/prisma-error-handler';
 
 @Injectable()
 export class AlertsService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   async create(createDto: CreateAlertDto) {
     try {
@@ -18,14 +18,23 @@ export class AlertsService {
     }
   }
 
-  async findAll() {
+  async findAll(userId: string) {
     try {
       return await this.prismaService.alert.findMany({
+        where: {
+          metric: {
+            service: {
+              prometheusConfig: {
+                userId: userId
+              }
+            }
+          }
+        },
         orderBy: { timestamp: 'desc' },
-        include: { 
-            metric: {
-                include: { service: true }
-            } 
+        include: {
+          metric: {
+            include: { service: true }
+          }
         }
       });
     } catch (error) {

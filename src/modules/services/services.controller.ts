@@ -3,12 +3,13 @@ import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { User } from 'src/common/decorators/User';
 
 @ApiTags('Services')
 @ApiBearerAuth()
 @Controller('services')
 export class ServicesController {
-  constructor(private readonly servicesService: ServicesService) {}
+  constructor(private readonly servicesService: ServicesService) { }
 
   @Post()
   create(@Body() createDto: CreateServiceDto) {
@@ -16,8 +17,8 @@ export class ServicesController {
   }
 
   @Get()
-  findAll() {
-    return this.servicesService.findAll();
+  findAll(@User('sub') userId: string) {
+    return this.servicesService.findAll(userId);
   }
 
   @Get(':id')

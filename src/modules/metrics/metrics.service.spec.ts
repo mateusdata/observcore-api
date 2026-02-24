@@ -146,10 +146,12 @@ describe('MetricsService', () => {
     it('should return all metrics', async () => {
       mockPrismaService.metric.findMany.mockResolvedValue([mockMetric]);
 
-      const result = await service.findAll();
+      const result = await service.findAll('user-id');
 
       expect(result).toHaveLength(1);
-      expect(mockPrismaService.metric.findMany).toHaveBeenCalled();
+      expect(mockPrismaService.metric.findMany).toHaveBeenCalledWith({
+        where: { service: { prometheusConfig: { userId: 'user-id' } } }
+      });
     });
   });
 

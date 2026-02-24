@@ -3,12 +3,13 @@ import { MetricsService } from './metrics.service';
 import { CreateMetricDto } from './dto/create-metric.dto';
 import { UpdateMetricDto } from './dto/update-metric.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { User } from 'src/common/decorators/User';
 
 @ApiTags('Metrics')
 @ApiBearerAuth()
 @Controller('metrics')
 export class MetricsController {
-  constructor(private readonly metricsService: MetricsService) {}
+  constructor(private readonly metricsService: MetricsService) { }
 
   @Post()
   create(@Body() createDto: CreateMetricDto) {
@@ -16,8 +17,8 @@ export class MetricsController {
   }
 
   @Get()
-  findAll() {
-    return this.metricsService.findAll();
+  findAll(@User('sub') userId: string) {
+    return this.metricsService.findAll(userId);
   }
 
   @Get(':id')

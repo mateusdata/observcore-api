@@ -13,38 +13,38 @@ export class MetricsService {
   constructor(
     private prismaService: PrismaService,
     private alertsService: AlertsService,
-  ) {}
+  ) { }
 
   @Cron(CronExpression.EVERY_5_SECONDS)
   async handleCron() {
-    
-   try {
-     const metrics = await this.prismaService.metric.findMany({
-      include: {
-        service: {
-          include: {
-            prometheusConfig: true,
+
+    try {
+      const metrics = await this.prismaService.metric.findMany({
+        include: {
+          service: {
+            include: {
+              prometheusConfig: true,
+            },
           },
         },
-      },
-    });
-    if (!metrics || metrics.length === 0) {
-      this.logger.debug('No metrics found for analysis');
-      return;
-    }
+      });
+      if (!metrics || metrics.length === 0) {
+        this.logger.debug('No metrics found for analysis');
+        return;
+      }
 
-    for (const metric of metrics) {
-      this.logger.debug(`Analyzing metric: ${metric.name}`);
-      await this.analyzeMetric(metric);
+      for (const metric of metrics) {
+        this.logger.debug(`Analyzing metric: ${metric.name}`);
+        await this.analyzeMetric(metric);
+      }
+    } catch (error) {
+      this.logger.error('Error in scheduled metric analysis', error);
+      PrismaErrorHandler.handle(error);
     }
-   } catch (error) {
-    this.logger.error('Error in scheduled metric analysis', error);
-    PrismaErrorHandler.handle(error);
-   }
   }
 
   private async analyzeMetric(metric: any) {
-    
+
     if (!metric.service?.prometheusConfig?.url) {
       this.logger.warn(`Prometheus config missing for metric ${metric.name}`);
       return;
@@ -101,9 +101,17 @@ export class MetricsService {
     }
   }
 
-  async findAll() {
+  async findAll(userId: string) {
     try {
-      return await this.prismaService.metric.findMany();
+      return await this.prismaService.metric.findMany({
+        where: {
+          service: {
+            prometheusConfig: {
+              userId: userId
+            }
+          }
+        }
+      });
     } catch (error) {
       PrismaErrorHandler.handle(error);
     }

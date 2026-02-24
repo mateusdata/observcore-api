@@ -115,10 +115,11 @@ describe('ServicesService', () => {
         { ...mockService, id: 'service-2', name: 'Worker Service', metrics: [] },
       ]);
 
-      const result = await service.findAll();
+      const result = await service.findAll('user-id');
 
       expect(result).toHaveLength(2);
       expect(mockPrismaService.service.findMany).toHaveBeenCalledWith({
+        where: { prometheusConfig: { userId: 'user-id' } },
         include: { metrics: true },
       });
     });
